@@ -3,7 +3,7 @@
 This iterates each bit of uint as a bool.
 
 ```rust
-use crate::BitIterator;
+use bit_iterator::BitIterator;
 
 #[test]
 fn test8() {
