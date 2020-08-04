@@ -1,29 +1,32 @@
-pub struct BitIterator {
-    n: usize,
+pub struct BitIterator<T> {
+    n: T,
     i: u8,
-}
-
-impl Iterator for BitIterator {
-    type Item = bool;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.i == 0 {
-            return None;
-        }
-
-        self.i -= 1;
-        Some(((self.n >> self.i) & 1) == 1)
-    }
 }
 
 macro_rules! define_into_bit_iterator {
     ( $( $type:tt => $initial:expr ),* $(,)? ) => { $(
-        impl From<$type> for BitIterator {
+        impl BitIterator<$type> {
+            pub fn new(n: $type) -> Self {
+                Self { n, i: $initial }
+            }
+        }
+
+        impl From<$type> for BitIterator<$type> {
             fn from(n: $type) -> Self {
-                Self {
-                    n: n as usize,
-                    i: $initial,
+                Self::new(n)
+            }
+        }
+
+        impl Iterator for BitIterator<$type> {
+            type Item = bool;
+
+            fn next(&mut self) -> Option<Self::Item> {
+                if self.i == 0 {
+                    return None;
                 }
+
+                self.i -= 1;
+                Some(((self.n >> self.i) & 1) == 1)
             }
         }
     )* };
