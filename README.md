@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mmmpa/bit_iterator.svg?style=shield)](https://circleci.com/gh/mmmpa/bit_iterator)
+
 # bit_iterator
 
 This iterates each bit of uint as a bool.
@@ -5,7 +7,7 @@ This iterates each bit of uint as a bool.
 This is `no_std`.
 
 ```rust
-use crate::BitIterator;
+use bit_iterator::BitIterator;
 
 #[test]
 fn test8() {
